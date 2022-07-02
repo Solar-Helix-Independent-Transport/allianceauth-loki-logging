@@ -10,22 +10,17 @@ class LokiHandler(logging.Handler):
         self,
         timeout=0.5,
         url="http://localhost:3100/loki/api/v1/push",
-        source="Loki",
-        src_host="localhost",
         auth=None,
         tags={},
-        tz="UTC",
         mode="sync",
     ):
         super(LokiHandler, self).__init__()
 
         self._url = url
-        self._tz = tz
         self._timeout = timeout
-        self._source = source
-        self._src_host = src_host
         self._auth = auth
         self._tags = tags
+
         self._mode = mode
 
     def emit(self, record):
@@ -39,9 +34,6 @@ class LokiHandler(logging.Handler):
             sys.stderr.write("Loki connection timed out\n")
 
     def setFormatter(self, fmt):
-        fmt.tz = self._tz
-        fmt.source = self._source
-        fmt.src_host = self._src_host
         fmt.tags = self._tags
 
         self.formatter = fmt
