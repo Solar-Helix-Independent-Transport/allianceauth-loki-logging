@@ -65,8 +65,10 @@ class LokiFormatter(logging.Formatter):
                         **self._tags,
                     },
                     "values": [
-                        self.format_timestamp(record.created).isoformat("T"),
-                        message,
+                        [
+                            self.format_timestamp(record.created),
+                            message,
+                        ]
                     ],
                 }
             ]
