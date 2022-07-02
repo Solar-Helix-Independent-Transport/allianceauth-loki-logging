@@ -13,6 +13,7 @@ class LokiHandler(logging.Handler):
         protocol="http",
         source="Loki",
         src_host="localhost",
+        auth=None,
         tz="UTC",
     ):
         super(LokiHandler, self).__init__()
@@ -23,11 +24,16 @@ class LokiHandler(logging.Handler):
         self._timeout = timeout
         self._source = source
         self._src_host = src_host
+        self._auth = auth
 
     def emit(self, record):
         try:
             payload = self.formatter.format(record)
-            res = requests.post(self._post_address, json=payload, timeout=self._timeout)
+
+            res = requests.post(
+                self._post_address, json=payload, timeout=self._timeout, auth=self._auth
+            )
+
             if res.status_code != 204:
                 sys.stderr.write("Loki occurs errors\n")
         except requests.exceptions.ReadTimeout:
