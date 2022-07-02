@@ -19,13 +19,14 @@ class LokiFormatter(logging.Formatter):
         self.fmt = fmt or BASIC_FORMAT
         self.dfmt = dfmt or "%Y-%m-%d %H:%M:%S"
         self.style = style
+
         if fqdn:
             self.host = socket.getfqdn()
         else:
             self.host = socket.gethostname()
 
     def format_timestamp(self, time):
-        return datetime.fromtimestamp(time, tz=pytz.timezone(self.tz))
+        return int(time * 10**9)
 
     def usesTime(self):
         return self.fmt.find(self.asctime_search) >= 0
