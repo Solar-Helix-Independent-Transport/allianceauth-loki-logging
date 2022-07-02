@@ -1,5 +1,6 @@
 import logging
 import sys
+from threading import Thread
 
 import requests
 
@@ -14,6 +15,7 @@ class LokiHandler(logging.Handler):
         auth=None,
         tags={},
         tz="UTC",
+        mode="sync",
     ):
         super(LokiHandler, self).__init__()
 
@@ -24,19 +26,15 @@ class LokiHandler(logging.Handler):
         self._src_host = src_host
         self._auth = auth
         self._tags = tags
+        self._mode = mode
 
     def emit(self, record):
         try:
             payload = self.formatter.format(record)
 
-            response = requests.post(
+            _push_message(
                 self._url, json=payload, timeout=self._timeout, auth=self._auth
             )
-
-            if response.status_code != 204:
-                sys.stderr.write(
-                    f"Got status {response.status_code} from loki with message: {response.text}\n"
-                )
         except requests.exceptions.ReadTimeout:
             sys.stderr.write("Loki connection timed out\n")
 
@@ -47,3 +45,19 @@ class LokiHandler(logging.Handler):
         fmt.tags = self._tags
 
         self.formatter = fmt
+
+    def _push_message(self, *args, **kwargs):
+        if self._mode == "sync":
+            return _push_message(*args, **kwargs)
+
+        if self._mode == "thread":
+            return Thread(target=_push_message, args=args, kwargs=kwargs).start()
+
+
+def _push_message(*args, **kwargs):
+    response = requests.post(*args, **kwargs)
+
+    if response.status_code != 204:
+        sys.stderr.write(
+            f"Got status {response.status_code} from loki with message: {response.text}\n"
+        )
