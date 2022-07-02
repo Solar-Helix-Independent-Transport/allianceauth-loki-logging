@@ -3,8 +3,6 @@ import sys
 
 import requests
 
-from django_loki_reloaded.formatters import LokiFormatter
-
 
 class LokiHandler(logging.Handler):
     def __init__(
