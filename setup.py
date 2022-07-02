@@ -1,15 +1,15 @@
 from setuptools import setup
 
 setup(
-    name='django-loki',
+    name='django-loki-reloaded',
     version='0.1.0',
-    packages=['django_loki'],
-    url='https://github.com/zepc007/django-loki',
+    packages=['django_loki_reloaded'],
+    url='https://github.com/h3nnn4n/django-loki-reloaded',
     license='MIT',
-    author='zepc007',
-    author_email='zepc007@gmail.com',
-    description='logging handler with loki for django',
-    keywords=['python', 'loki', 'grafana', 'logging', 'metrics'],
+    author='h3nnn4n',
+    author_email='django_loki_reloaded@h3nnn4n.me',
+    description='logging handler with loki for django, non blocking',
+    keywords=['python', 'loki', 'grafana', 'logging', 'metrics', 'threaded'],
     install_requires=[
         'requests',
         'pytz',
@@ -22,6 +22,5 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
-        'Development Status :: 3 - Alpha '
     ],
 )
