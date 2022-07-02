@@ -14,6 +14,7 @@ class LokiHandler(logging.Handler):
         source="Loki",
         src_host="localhost",
         auth=None,
+        tags={},
         tz="UTC",
     ):
         super(LokiHandler, self).__init__()
@@ -25,6 +26,7 @@ class LokiHandler(logging.Handler):
         self._source = source
         self._src_host = src_host
         self._auth = auth
+        self._tags = tags
 
     def emit(self, record):
         try:
@@ -45,5 +47,6 @@ class LokiHandler(logging.Handler):
         fmt.tz = self._tz
         fmt.source = self._source
         fmt.src_host = self._src_host
+        fmt.tags = self._tags
 
         self.formatter = fmt

@@ -11,6 +11,7 @@ class LokiFormatter(logging.Formatter):
     tz = "UTC"
     source = "Loki"
     src_host = "localhost"
+    tags = {}
 
     def __init__(self, fmt, dfmt, style, fqdn=False):
         super(LokiFormatter, self).__init__()
@@ -62,7 +63,7 @@ class LokiFormatter(logging.Formatter):
             "streams": [
                 {
                     "stream": {
-                        **self._tags,
+                        **self.tags,
                     },
                     "values": [
                         [
