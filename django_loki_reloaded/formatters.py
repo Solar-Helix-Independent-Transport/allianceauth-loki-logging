@@ -41,32 +41,32 @@ class LokiFormatter(logging.Formatter):
         if self.usesTime():
             record.asctime = self.formatTime(record, self.dfmt)
 
-        s = self.formatMessage(record)
+        message = self.formatMessage(record)
 
         if record.exc_info:
             if not record.exc_text:
                 record.exc_text = self.formatException(record.exc_info)
 
         if record.exc_text:
-            if s[-1:] != "\n":
-                s = s + "\n"
-            s = s + record.exc_text
+            if message[-1:] != "\n":
+                message = message + "\n"
+            message = message + record.exc_text
 
         if record.stack_info:
-            if s[-1:] != "\n":
-                s = s + "\n"
+            if message[-1:] != "\n":
+                message = message + "\n"
 
-            s = s + self.formatStack(record.stack_info)
+            message = message + self.formatStack(record.stack_info)
 
         message = {
             "streams": [
                 {
-                    "labels": f'{{source="{self.source}",job="{record.name}",host="{self.src_host}"}}',
-                    "entries": [
-                        {
-                            "ts": self.format_timestamp(record.created).isoformat("T"),
-                            "line": s,
-                        }
+                    "stream": {
+                        **self._tags,
+                    },
+                    "values": [
+                        self.format_timestamp(record.created).isoformat("T"),
+                        message,
                     ],
                 }
             ]
