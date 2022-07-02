@@ -7,10 +7,8 @@ import requests
 class LokiHandler(logging.Handler):
     def __init__(
         self,
-        host="localhost",
-        port=3100,
         timeout=0.5,
-        protocol="http",
+        url="http://localhost:3100/loki/api/v1/push",
         source="Loki",
         src_host="localhost",
         auth=None,
@@ -19,8 +17,7 @@ class LokiHandler(logging.Handler):
     ):
         super(LokiHandler, self).__init__()
 
-        self._address = f"{protocol}://{host}:{port}"
-        self._post_address = f"{self._address}/api/prom/push"
+        self._url = url
         self._tz = tz
         self._timeout = timeout
         self._source = source
@@ -32,16 +29,16 @@ class LokiHandler(logging.Handler):
         try:
             payload = self.formatter.format(record)
 
-            res = requests.post(
-                self._post_address, json=payload, timeout=self._timeout, auth=self._auth
+            response = requests.post(
+                self._url, json=payload, timeout=self._timeout, auth=self._auth
             )
 
-            if res.status_code != 204:
-                sys.stderr.write("Loki occurs errors\n")
+            if response.status_code != 204:
+                sys.stderr.write(
+                    f"Got status {response.status_code} from loki with message: {response.text}\n"
+                )
         except requests.exceptions.ReadTimeout:
-            sys.stderr.write("Loki connect time out\n")
-        except Exception:
-            sys.stderr.write(f"{record.getMessage()}\n")
+            sys.stderr.write("Loki connection timed out\n")
 
     def setFormatter(self, fmt):
         fmt.tz = self._tz
