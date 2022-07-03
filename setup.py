@@ -8,7 +8,7 @@ setup(
     license='MIT',
     author='h3nnn4n',
     author_email='django_loki_reloaded@h3nnn4n.me',
-    description='logging handler with loki for django, non blocking',
+    description='A non-blocking django logging handler for Loki',
     keywords=['python', 'loki', 'grafana', 'logging', 'metrics', 'threaded'],
     install_requires=[
         'requests',
