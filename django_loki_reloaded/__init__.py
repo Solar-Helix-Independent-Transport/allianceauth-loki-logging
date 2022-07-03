@@ -1,7 +1,7 @@
 """
 MIT License
 
-Copyright (c) 2021 Zepc Myers
+Copyright (c) 2021 Zepc Myers, 2022 h3nnn4n (Renan S Silva)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -11,9 +11,9 @@ copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 """
 
-from .handlers import LokiHttpHandler
+from .handlers import LokiHandler
 from .formatters import LokiFormatter
 
-__all__ = ['LokiHttpHandler', 'LokiFormatter']
-__version__ = "0.1.0"
-name = "django_loki"
+__all__ = ['LokiHandler', 'LokiFormatter']
+__version__ = "1.0.0"
+name = "django_loki_reloaded"

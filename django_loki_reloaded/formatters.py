@@ -11,6 +11,7 @@ class LokiFormatter(logging.Formatter):
     tz = "UTC"
     source = "Loki"
     src_host = "localhost"
+    tags = {}
 
     def __init__(self, fmt, dfmt, style, fqdn=False):
         super(LokiFormatter, self).__init__()
@@ -18,13 +19,14 @@ class LokiFormatter(logging.Formatter):
         self.fmt = fmt or BASIC_FORMAT
         self.dfmt = dfmt or "%Y-%m-%d %H:%M:%S"
         self.style = style
+
         if fqdn:
             self.host = socket.getfqdn()
         else:
             self.host = socket.gethostname()
 
     def format_timestamp(self, time):
-        return datetime.fromtimestamp(time, tz=pytz.timezone(self.tz))
+        return int(time * 10**9)
 
     def usesTime(self):
         return self.fmt.find(self.asctime_search) >= 0
@@ -62,11 +64,13 @@ class LokiFormatter(logging.Formatter):
             "streams": [
                 {
                     "stream": {
-                        **self._tags,
+                        **self.tags,
                     },
                     "values": [
-                        self.format_timestamp(record.created).isoformat("T"),
-                        message,
+                        [
+                            self.format_timestamp(record.created),
+                            message,
+                        ]
                     ],
                 }
             ]
