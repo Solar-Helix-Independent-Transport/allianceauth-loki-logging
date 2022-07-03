@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='django-loki-reloaded',
-    version='1.0.0',
+    version='1.0.2',
     packages=['django_loki_reloaded'],
     url='https://github.com/h3nnn4n/django-loki-reloaded',
     license='MIT',
