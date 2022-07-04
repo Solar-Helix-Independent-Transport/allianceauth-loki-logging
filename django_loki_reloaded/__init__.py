@@ -15,5 +15,5 @@ from .handlers import LokiHandler
 from .formatters import LokiFormatter
 
 __all__ = ['LokiHandler', 'LokiFormatter']
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 name = "django_loki_reloaded"

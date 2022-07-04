@@ -32,6 +32,8 @@ class LokiHandler(logging.Handler):
             )
         except requests.exceptions.ReadTimeout:
             sys.stderr.write("Loki connection timed out\n")
+        except Exception as e:
+            sys.stderr.write(f"Loki connection failed with: {e}\n")
 
     def setFormatter(self, fmt):
         fmt.tags = self._tags
