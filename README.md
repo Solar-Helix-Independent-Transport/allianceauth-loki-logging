@@ -98,7 +98,7 @@ LOGGING['root'] = { # Set the root logger
     'level': 'DEBUG' if DEBUG else 'INFO', # Auto set the log level to only record debug when in debug
 }
 
-CELERY_WORKER_HIJACK_ROOT_LOGGER = False  # Do not overide with celery logging.
+WORKER_HIJACK_ROOT_LOGGER = False  # Do not overide with celery logging.
 ```
 
 In your `supervisor.conf` update any workers to run at logging level DEBUG. `-l INFO`
