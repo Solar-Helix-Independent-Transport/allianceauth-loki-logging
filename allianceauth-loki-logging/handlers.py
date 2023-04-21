@@ -50,7 +50,7 @@ class LokiHandler(logging.Handler):
 
 def _push_message(*args, **kwargs):
     response = requests.post(*args, **kwargs)
-
+    #print(response)
     if response.status_code != 204:
         sys.stderr.write(
             f"Got status {response.status_code} from loki with message: {response.text}\n"

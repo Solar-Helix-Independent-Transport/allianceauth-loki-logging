@@ -1,13 +1,13 @@
 from setuptools import setup
 
 setup(
-    name='django-loki-reloaded',
-    version='1.0.3',
-    packages=['django_loki_reloaded'],
+    name='allianceauth-loki-logging',
+    version='0.0.1',
+    packages=['allianceauth-loki-logging'],
     url='https://github.com/h3nnn4n/django-loki-reloaded',
     license='MIT',
-    author='h3nnn4n',
-    author_email='django_loki_reloaded@h3nnn4n.me',
+    author='aaronkable',
+    author_email='aaronkable@gmail.com',
     description='A non-blocking django logging handler for Loki',
     keywords=['python', 'loki', 'grafana', 'logging', 'metrics', 'threaded'],
     install_requires=[

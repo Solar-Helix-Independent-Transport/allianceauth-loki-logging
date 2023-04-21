@@ -5,7 +5,18 @@ from logging import BASIC_FORMAT
 
 import pytz
 
-
+INCLUDED_ITEMS = [
+    "filename",
+    "funcName",
+    "levelname",
+    "lineno",
+    "module",
+    "name",
+    "process",
+    "pathname",
+    "processName",
+    "threadName"
+]
 class LokiFormatter(logging.Formatter):
     asctime_search = "%(asctime)"
     tz = "UTC"
@@ -16,7 +27,7 @@ class LokiFormatter(logging.Formatter):
     def __init__(self, fmt, dfmt, style, fqdn=False):
         super(LokiFormatter, self).__init__()
 
-        self.fmt = fmt or BASIC_FORMAT
+        self.fmt = fmt or "%(levelname)s %(message)s"
         self.dfmt = dfmt or "%Y-%m-%d %H:%M:%S"
         self.style = style
 
@@ -65,10 +76,11 @@ class LokiFormatter(logging.Formatter):
                 {
                     "stream": {
                         **self.tags,
+                        **{i:record.__dict__[i] for i in record.__dict__ if i in INCLUDED_ITEMS},
                     },
                     "values": [
                         [
-                            self.format_timestamp(record.created),
+                            str(self.format_timestamp(record.created)),
                             message,
                         ]
                     ],
