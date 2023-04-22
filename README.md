@@ -73,7 +73,7 @@ LOGGING = {
     }
 }
 
-
+###  LOKI Specific settings
 LOGGING['formatters']['loki'] = {
     'class': 'allianceauth-loki-logging.LokiFormatter'  # required
 }
@@ -105,6 +105,6 @@ In your `supervisor.conf` update any workers to run at logging level DEBUG. `-l 
 
 ```conf
 ....
-command= celery -A myauth worker -l INFO
+command= celery -A myauth worker -l DEBUG
 ....
 ```
