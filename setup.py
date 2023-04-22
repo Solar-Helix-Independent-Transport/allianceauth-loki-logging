@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='allianceauth-loki-logging',
-    version='0.0.1',
+    version='0.0.1a1',
     packages=['allianceauth-loki-logging'],
     url='https://github.com/Solar-Helix-Independent-Transport/allianceauth-loki-logging',
     license='MIT',
