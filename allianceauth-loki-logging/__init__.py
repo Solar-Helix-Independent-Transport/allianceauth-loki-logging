@@ -16,4 +16,3 @@ from .formatters import LokiFormatter
 
 __all__ = ['LokiHandler', 'LokiFormatter']
 __version__ = "1.0.4"
-name = "django_loki_reloaded"
