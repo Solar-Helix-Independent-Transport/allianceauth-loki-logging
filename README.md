@@ -36,7 +36,7 @@ pip install git+https://github.com/Solar-Helix-Independent-Transport/allianceaut
 add this to your requirements file and rebuild your image
 
 ```
-allianceauth-loki-logging>=1.0.3
+allianceauth-loki-logging>=1.0.0
 ```
 
 or
