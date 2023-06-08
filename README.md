@@ -7,7 +7,7 @@ Build on top of [django-loki-reloaded](https://github.com/zepc007/django-loki).
 
 # Why?
 
-A single location for all logs across auth, with search and notifications etc. Complete with trace type data for everything. 
+A single location for all logs across auth, Separate to auth! With search and notifications etc. Complete with python trace type data for everything.
 
 ![Logs 1](https://i.imgur.com/rYUsSDy.png)
 
@@ -49,7 +49,7 @@ allianceauth-loki-logging @ git+https://github.com/Solar-Helix-Independent-Trans
 
 `LokiHandler` is a custom logging handler that pushes log messages to Loki.
 
-Modify your settings to integrate `allianceauth-loki-logging` with Django's logging:
+Modify your settings to integrate `allianceauth_loki_logging` with Django's logging:
 
 in your `local.py` add this at the end, Be sure to read the comments and update any that need to be updated. Specifically the url for loki.
 
@@ -102,14 +102,14 @@ LOGGING = {
 
 ###  LOKI Specific settings
 LOGGING['formatters']['loki'] = {
-    'class': 'allianceauth-loki-logging.LokiFormatter'  # required
+    'class': 'allianceauth_loki_logging.LokiFormatter'  # required
 }
 
 print(f"Configuring Loki Log job to: {os.path.basename(os.sys.argv[0])}")
 
 LOGGING['handlers']['loki'] = {
     'level': 'DEBUG' if DEBUG else 'INFO',  # Required # We are auto setting the log level to only record debug when in debug.
-    'class': 'allianceauth-loki-logging.LokiHandler',  # Required
+    'class': 'allianceauth_loki_logging.LokiHandler',  # Required
     'formatter': 'loki',  #Required
     'timeout': 1,  # Post request timeout, default is 0.5. Optional
     # Loki url. Defaults to localhost. Optional.

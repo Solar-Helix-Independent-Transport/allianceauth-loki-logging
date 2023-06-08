@@ -6,10 +6,12 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
+from allianceauth_loki_logging import __version__
+
 setup(
     name='allianceauth-loki-logging',
-    version='0.0.1a1',
-    packages=['allianceauth-loki-logging'],
+    version=__version__,
+    packages=find_packages(),
     url='https://github.com/Solar-Helix-Independent-Transport/allianceauth-loki-logging',
     license='MIT',
     author='aaronkable',
