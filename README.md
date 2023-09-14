@@ -134,10 +134,17 @@ WORKER_HIJACK_ROOT_LOGGER = False  # Do not overide with celery logging.
 
 ## Diagnosing issues with logs not being pushed in HIGHLY threaded environments
 
-add the following to your loki config to bypass the rate limits.
+add the following to your loki config to bypass the rate limits and by default loki does not delete logs so we will rotate and delete them every 10 days - change if you want longer
+
 
 ```yaml
 limits_config:
   max_streams_per_user: 0
   max_global_streams_per_user: 0
+  retention_period: 10d # Keep 10 days
+
+compactor:
+        delete_request_cancel_period: 10m # don't wait 24h before processing the delete_request
+        retention_enabled: true # actually do the delete
+        retention_delete_delay: 2h # wait 2 hours before actually deleting stuff
 ```
