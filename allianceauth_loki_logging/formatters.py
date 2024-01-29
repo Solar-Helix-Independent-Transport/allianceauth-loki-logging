@@ -76,7 +76,7 @@ class LokiFormatter(logging.Formatter):
                 {
                     "stream": {
                         **self.tags,
-                        **{i:record.__dict__[i] for i in record.__dict__ if i in INCLUDED_ITEMS},
+                        **{i:str(record.__dict__[i]) for i in record.__dict__ if i in INCLUDED_ITEMS},
                     },
                     "values": [
                         [
