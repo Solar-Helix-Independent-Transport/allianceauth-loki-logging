@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 #from allianceauth_loki_logging import __version__
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 setup(
     name='allianceauth-loki-logging',
