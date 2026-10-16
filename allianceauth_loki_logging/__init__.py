@@ -15,4 +15,4 @@ from .handlers import LokiHandler
 from .formatters import LokiFormatter
 
 __all__ = ['LokiHandler', 'LokiFormatter']
-__version__ = "1.0.1"
+__version__ = "1.1.0"

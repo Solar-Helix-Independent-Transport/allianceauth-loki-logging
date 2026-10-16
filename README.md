@@ -120,8 +120,14 @@ LOGGING['handlers']['loki'] = {
         # you could add extra tags here if you were running multiple auths and needed to be able to tell them apart in a single loki instance eg:
         # "auth": "CoolAuth 1",
     }, 
-    # Push mode. Can be 'sync' or 'thread'. Sync is blocking, thread is non-blocking. Defaults to sync. Optional.
+    # Push mode. Can be 'sync' or 'thread'. Defaults to thread. Optional.
+    # thread: logs are queued and pushed in batches by a background thread, if loki is down logs are dropped rather than blocking.
+    # sync: every log call blocks on a post to loki. Not recommended for celery/gunicorn.
     'mode': 'thread',
+    # Optional thread mode tuning:
+    # 'max_queue_size': 10000,  # records held per process before dropping
+    # 'batch_size': 500,  # max records per push
+    # 'flush_interval': 1.0,  # seconds between pushes when idle
 }
 
 LOGGING['root'] = { # Set the root logger
